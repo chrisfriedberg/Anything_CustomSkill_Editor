@@ -124,9 +124,36 @@ class ConfigDialog(QDialog):
 
         # Button layout for Save and Cancel
         btn_layout = QHBoxLayout()
-        save_btn = NavButton("Save")
+        save_btn = MenuBarButton("Save")
         save_btn.clicked.connect(self.save_config)
-        cancel_btn = NavButton("Cancel")
+        cancel_btn = MenuBarButton("Cancel")
+        cancel_btn.setStyleSheet("""
+            QPushButton {
+                color: white;
+                font-weight: bold;
+                border: 1.5px solid #a00;
+                border-radius: 6px;
+                padding: 6px 18px;
+                background: qlineargradient(
+                    x1:0, y1:0, x2:0, y2:1,
+                    stop:0 #ff4444, stop:1 #a00000
+                );
+            }
+            QPushButton:hover {
+                background: qlineargradient(
+                    x1:0, y1:0, x2:0, y2:1,
+                    stop:0 #ff6666, stop:1 #c00000
+                );
+            }
+            QPushButton:pressed {
+                background: #a00000;
+            }
+            QPushButton:disabled {
+                background: #a00000;
+                color: #bbbbbb;
+                border: 1.5px solid #a00000;
+            }
+        """)
         cancel_btn.clicked.connect(self.reject)
         btn_layout.addWidget(save_btn)
         btn_layout.addWidget(cancel_btn)
@@ -160,7 +187,7 @@ class SkillEditor(QMainWindow):
         tools_menu_btn.clicked.connect(self.open_tools_menu)
         toolbar.addWidget(tools_menu_btn)
 
-        # Nav Buttons
+        # Nav Buttons (centered)
         nav_layout = QHBoxLayout()
         for label in ["Add New", "Modify Skill", "Delete Skill", "Open Skills Directory"]:
             btn = NavButton(label)
@@ -170,16 +197,58 @@ class SkillEditor(QMainWindow):
         nav_widget = QWidget()
         nav_widget.setLayout(nav_layout)
 
-        # Main Layout
-        layout = QVBoxLayout()
-        layout.addWidget(nav_widget)
+        # Centering layout for nav buttons
+        center_layout = QVBoxLayout()
+        center_layout.addStretch()
+        center_layout.addWidget(nav_widget, alignment=Qt.AlignHCenter)
+        center_layout.addStretch()
 
+        # Info label
         info = QLabel("Use the Tools menu to configure skill settings. Nav buttons will trigger skill editors.")
         info.setAlignment(Qt.AlignCenter)
-        layout.addWidget(info)
+        center_layout.addWidget(info)
+
+        # Main layout (vertical): center area + close button at bottom
+        main_layout = QVBoxLayout()
+        main_layout.addLayout(center_layout)
+
+        # Close button layout (lower right)
+        close_btn_layout = QHBoxLayout()
+        close_btn_layout.addStretch()
+        close_btn = MenuBarButton("Close")
+        close_btn.setStyleSheet("""
+            QPushButton {
+                color: white;
+                font-weight: bold;
+                border: 1.5px solid #a00;
+                border-radius: 6px;
+                padding: 6px 18px;
+                background: qlineargradient(
+                    x1:0, y1:0, x2:0, y2:1,
+                    stop:0 #ff4444, stop:1 #a00000
+                );
+            }
+            QPushButton:hover {
+                background: qlineargradient(
+                    x1:0, y1:0, x2:0, y2:1,
+                    stop:0 #ff6666, stop:1 #c00000
+                );
+            }
+            QPushButton:pressed {
+                background: #a00000;
+            }
+            QPushButton:disabled {
+                background: #a00000;
+                color: #bbbbbb;
+                border: 1.5px solid #a00000;
+            }
+        """)
+        close_btn.clicked.connect(self.close)
+        close_btn_layout.addWidget(close_btn)
+        main_layout.addLayout(close_btn_layout)
 
         main_widget = QWidget()
-        main_widget.setLayout(layout)
+        main_widget.setLayout(main_layout)
         self.setCentralWidget(main_widget)
 
         # Status Bar
