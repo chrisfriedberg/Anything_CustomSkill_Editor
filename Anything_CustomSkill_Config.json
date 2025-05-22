@@ -1,7 +1,7 @@
 {
-  "log_level": "Standard",
-  "default_skill_output_path": "C:\\Users\\chris\\AppData\\Roaming\\AnythingLLM\\plugins\\agent-skills",
-  "lock_fields_by_default": true,
+  "log_level": "Verbose",
+  "default_skill_output_path": "C:\\Users\\chris\\AppData\\Roaming/AnythingLLM/plugins/agent-skills",
+  "lock_fields_by_default": false,
   "show_field_tooltips": true,
   "allow_skill_overwrite": false
 }

@@ -1,0 +1,18 @@
+{
+  "active": true,
+  "hubId": "reverse-text",
+  "name": "Reverse Text",
+  "schema": "skill-1.0.0",
+  "version": "1.0.0",
+  "description": "Takes a string input and returns the reversed version. This was Bytes Test",
+  "output_description": "Returns the reversed string.",
+  "entrypoint": {
+    "file": "handler.js",
+    "params": {
+      "text": {
+        "description": "The text to reverse.",
+        "type": "string"
+      }
+    }
+  }
+}
